@@ -1,0 +1,34 @@
+micronaut:
+  application:
+    name: tpaPrueba
+  server:
+    port: 9000
+---
+application:
+  port: 9000
+  #end::application[]
+  #tag::datasource[]
+---
+datasources:
+  default:
+    url: ${JDBC_URL:`jdbc:mysql://localhost:3306/db_micronaut?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC``}
+    #url: jdbc:h2:file:/tmp/tpa-presentacion
+    username: ${JDBC_USER:root}
+    password: ${JDBC_PASSWORD:}
+    #driverClassName: ${JDBC_DRIVER:org.h2.Driver}
+    driverClassName: ${JDBC_DRIVER:com.mysql.cj.jdbc.Driver}
+#end::datasource[]
+#tag::jpa[]
+---
+jpa:
+  default:
+    packages-to-scan:
+      - 'tpaPrueba.ent'
+      - 'tpaPrueba.repos'
+
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        show_sql: true
+#end::jpa[]
